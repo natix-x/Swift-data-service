@@ -9,7 +9,7 @@ import java.util.Set;
 public class Country {
     @Id
     @Column(name="country_ISO2", length=2)
-    private String countryISO2Code;
+    private String countryISO2;
     @Column(nullable=false, unique=true)
     private String countryName;
     @OneToMany(mappedBy = "country")
@@ -17,18 +17,18 @@ public class Country {
 
     public Country() {}
 
-    public Country(String countryISO2Code, String countryName, Set<Bank> items) {
-        this.countryISO2Code = countryISO2Code;
+    public Country(String countryISO2, String countryName, Set<Bank> items) {
+        this.countryISO2 = countryISO2;
         this.countryName = countryName;
         this.items = items;
     }
 
-    public String getCountryISO2Code() {
-        return countryISO2Code;
+    public String getCountryISO2() {
+        return countryISO2;
     }
 
     public void setCountryISO2Code(String countryISO2Code) {
-        this.countryISO2Code = countryISO2Code;
+        this.countryISO2 = countryISO2Code;
     }
 
     public String getCountryName() {

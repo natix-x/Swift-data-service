@@ -1,8 +1,14 @@
 package com.bankdata.swiftmanager.service;
 
+import com.bankdata.swiftmanager.dto.BankDTO;
+import com.bankdata.swiftmanager.dto.BranchDTO;
+import com.bankdata.swiftmanager.model.Bank;
+
+import java.util.List;
+
 public interface SWIFTCodesService {
-    public String getSWIFTCodeDetails(String SWIFTCode);
-    public String getAllSWIFTCodesFromCountryISO2Code(String countryISO2);
-    public String addSWIFTCode(String SWIFTCode, String bankName, String address, String countryISO2, String countryName, boolean isHeadquarter);
+    public BankDTO getSWIFTCodeDetails(String SWIFTCode);
+    public List<BranchDTO> getAllSWIFTCodesFromCountryISO2(String countryISO2);
+    public String addSWIFTCode(BankDTO bankDTO);
     public String deleteSWIFTCode(String SWIFTCode);
 }
