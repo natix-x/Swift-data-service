@@ -8,14 +8,16 @@ import com.bankdata.swiftmanager.model.Bank;
 import com.bankdata.swiftmanager.model.Country;
 import com.bankdata.swiftmanager.repository.CountriesRepository;
 import com.bankdata.swiftmanager.repository.SWIFTCodesRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class SWIFTCodesServiceImpl implements SWIFTCodesService {
-
+    @Autowired
     private SWIFTCodesRepository SWIFTCodesRepository;
+    @Autowired
     private CountriesRepository CountriesRepository;
 
     public SWIFTCodesServiceImpl(SWIFTCodesRepository SWIFTCodesRepository) {
@@ -47,7 +49,7 @@ public class SWIFTCodesServiceImpl implements SWIFTCodesService {
     }
 
 
-    private Bank convertToEntity(BankDTO bankDTO, Country country) {
+    private Bank convertToEntity(BranchDTO bankDTO, Country country) {
         return new Bank(bankDTO.SWIFTCode(), bankDTO.bankName(), bankDTO.address(), bankDTO.isHeadquarter(), country);
     }
 
@@ -59,7 +61,8 @@ public class SWIFTCodesServiceImpl implements SWIFTCodesService {
 
     // TODO implement
     @Override
-    public String addSWIFTCode(BankDTO bankDTO) {
+    public String addSWIFTCode(BranchDTO bankDTO) {
+        System.out.println(bankDTO.SWIFTCode());
         Country country = CountriesRepository.findById(bankDTO.countryISO2()).orElseThrow(() -> new CountryNotFoundException("Country with provided ISO2 code not found."));
         if (!country.getCountryName().equals(bankDTO.countryName())) {
             return "Failure. Provided country ISO2 code does not match provided country name.";

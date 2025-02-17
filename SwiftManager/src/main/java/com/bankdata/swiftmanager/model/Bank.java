@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 @Table(name="banks")
 public class Bank {
     @Id
-    @Column(name="swift_code")
     private String SWIFTCode;
     @Column(nullable = false)
     private String bankName;

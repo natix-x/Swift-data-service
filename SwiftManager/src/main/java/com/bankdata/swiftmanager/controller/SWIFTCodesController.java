@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/v1/swift-codes/")
 public class SWIFTCodesController {
 
@@ -30,8 +30,9 @@ public class SWIFTCodesController {
         return SWIFTCodesService.getAllSWIFTCodesFromCountryISO2(countryISO2);
     }
 
-    @PostMapping("/")
-    public String addBankCode(@RequestBody BankDTO bankDTO) {
+    @PostMapping
+    public String addBankCode(@RequestBody BranchDTO bankDTO) {
+        System.out.println("Received DTO: " + bankDTO);
         return SWIFTCodesService.addSWIFTCode(bankDTO);
     }
 
