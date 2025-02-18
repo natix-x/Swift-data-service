@@ -8,26 +8,27 @@ import java.util.Set;
 @Table(name="countries")
 public class Country {
     @Id
-    @Column(name="country_ISO2", length=2)
+    @Column(name="country_ISO2")
     private String countryISO2;
     @Column(nullable=false, unique=true)
     private String countryName;
     @OneToMany(mappedBy = "country")
-    private Set<Bank> items;
+    private Set<Bank> banks;
 
     public Country() {}
 
-    public Country(String countryISO2, String countryName, Set<Bank> items) {
+    public Country(String countryISO2, String countryName, Set<Bank> banks) {
         this.countryISO2 = countryISO2;
         this.countryName = countryName;
-        this.items = items;
+        this.banks = banks;
     }
+
 
     public String getCountryISO2() {
         return countryISO2;
     }
 
-    public void setCountryISO2Code(String countryISO2Code) {
+    public void setCountryISO2(String countryISO2Code) {
         this.countryISO2 = countryISO2Code;
     }
 
@@ -39,11 +40,11 @@ public class Country {
         this.countryName = countryName;
     }
 
-    public Set<Bank> getItems() {
-        return items;
+    public Set<Bank> getBanks() {
+        return banks;
     }
 
-    public void setItems(Set<Bank> items) {
-        this.items = items;
+    public void setBanks(Set<Bank> items) {
+        this.banks = items;
     }
 }
