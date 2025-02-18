@@ -10,17 +10,7 @@ public class ApiResponse<T> {
     private String message;
     private T data;
     private List<String> errors;
-
-    public int getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
-    }
-
-    private int errorCode;
-
+    ;
 
     public String getMessage() {
         return message;

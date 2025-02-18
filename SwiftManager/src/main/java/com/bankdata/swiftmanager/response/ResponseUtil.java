@@ -20,7 +20,6 @@ public class ResponseUtil {
         ApiResponse<T> response = new ApiResponse<>();
         response.setMessage(message);
         response.setErrors(errors);
-        response.setErrorCode(errorCode);
         return response;
     }
 

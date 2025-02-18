@@ -1,7 +1,15 @@
 package com.bankdata.swiftmanager.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.List;
 
-public record BankDTO(String SWIFTCode, String bankName,
-                      String address, boolean isHeadquarter, List<BranchDTO> branches, String countryName, String countryISO2) {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public record BankDTO(String address,
+                      String bankName,
+                      String countryISO2,
+                      String countryName,
+                      boolean isHeadquarter,
+                      String swiftCode,
+                      List<BranchDTO> branches) {
 }

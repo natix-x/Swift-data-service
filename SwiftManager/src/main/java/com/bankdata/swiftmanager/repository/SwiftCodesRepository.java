@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SWIFTCodesRepository extends JpaRepository<Bank, String> {
+public interface SwiftCodesRepository extends JpaRepository<Bank, String> {
     List<Bank> findByCountry_CountryISO2(String countryISO2);
 
-    @Query("SELECT b FROM Bank b WHERE b.SWIFTCode LIKE CONCAT(:pattern, '%')")
+    @Query("SELECT b FROM Bank b WHERE b.swiftCode LIKE CONCAT(:pattern, '%')")
     List<Bank> findBranchesByHeadquarter(@Param("pattern") String pattern);
 }

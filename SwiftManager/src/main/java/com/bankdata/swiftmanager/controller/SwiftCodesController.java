@@ -1,40 +1,39 @@
 package com.bankdata.swiftmanager.controller;
 
 import com.bankdata.swiftmanager.dto.BankDTO;
+import com.bankdata.swiftmanager.dto.BanksFromCountryDTO;
 import com.bankdata.swiftmanager.dto.BranchDTO;
 import com.bankdata.swiftmanager.response.ApiResponse;
 import com.bankdata.swiftmanager.response.ResponseUtil;
-import com.bankdata.swiftmanager.service.SWIFTCodesService;
-import org.springframework.http.MediaType;
+import com.bankdata.swiftmanager.service.SWiftCodesService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/v1/swift-codes/")
-public class SWIFTCodesController {
+public class SwiftCodesController {
 
-    SWIFTCodesService SWIFTCodesService;
+    SWiftCodesService SWIFTCodesService;
 
-    public SWIFTCodesController(com.bankdata.swiftmanager.service.SWIFTCodesService SWIFTCodesService) {
+    public SwiftCodesController(SWiftCodesService SWIFTCodesService) {
         this.SWIFTCodesService = SWIFTCodesService;
     }
 
     @GetMapping("/{swift-code}")
-    public ResponseEntity<BankDTO> getSwiftCodeDetails(@PathVariable("swift-code") String SWIFTCode)
+    public ResponseEntity<BankDTO> getSwiftCodeDetails(@PathVariable("swift-code") String swiftCode)
     {
-        BankDTO bankDetails = SWIFTCodesService.getSWIFTCodeDetails(SWIFTCode);
+        BankDTO bankDetails = SWIFTCodesService.getSWIFTCodeDetails(swiftCode);
         return ResponseEntity.ok(bankDetails);
     }
 
     // TODO popraw format zwracany
     @GetMapping("/country/{countryISO2code}")
-    public ResponseEntity<List<BranchDTO>> getCountryBankCodes(@PathVariable("countryISO2code") String countryISO2)
+    public ResponseEntity<BanksFromCountryDTO> getCountryBankCodes(@PathVariable("countryISO2code") String countryISO2)
     {
-        List<BranchDTO> banksInCountry = SWIFTCodesService.getAllSWIFTCodesFromCountryISO2(countryISO2);
-        return ResponseEntity.ok(banksInCountry);
+        BanksFromCountryDTO banks = SWIFTCodesService.getAllSwiftCodesFromCountryISO2(countryISO2);
+        return ResponseEntity.ok(banks);
     }
 
     @PostMapping("")
@@ -44,8 +43,8 @@ public class SWIFTCodesController {
     }
 
     @DeleteMapping("/{swift-code}")
-    public ResponseEntity<ApiResponse<String>> deleteBankCode(@PathVariable("swift-code") String SWIFTCode) {
-        SWIFTCodesService.deleteSWIFTCode(SWIFTCode);
+    public ResponseEntity<ApiResponse<String>> deleteBankCode(@PathVariable("swift-code") String swiftCode) {
+        SWIFTCodesService.deleteSWIFTCode(swiftCode);
         return ResponseEntity.ok(ResponseUtil.successMessageDisplay("Swift code data deleted successfully."));
     }
 }

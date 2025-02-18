@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name="banks")
 public class Bank {
     @Id
-    private String SWIFTCode;
+    private String swiftCode;
     @Column(nullable = false)
     private String bankName;
     private String address;
@@ -19,20 +19,20 @@ public class Bank {
 
     public Bank() {}
 
-    public Bank(String SWIFTCode, String bankName, String address, boolean isHeadquarter, Country country) {
-        this.SWIFTCode = SWIFTCode;
+    public Bank(String swiftCode, String bankName, String address, boolean isHeadquarter, Country country) {
+        this.swiftCode = swiftCode;
         this.bankName = bankName;
         this.address = address;
         this.isHeadquarter = isHeadquarter;
         this.country = country;
     }
 
-    public String getSWIFTCode() {
-        return SWIFTCode;
+    public String getSwiftCode() {
+        return swiftCode;
     }
 
-    public void setSWIFTCode(String SWIFTCode) {
-        this.SWIFTCode = SWIFTCode;
+    public void setSwiftCode(String swiftCode) {
+        this.swiftCode = swiftCode;
     }
 
     public String getBankName() {
