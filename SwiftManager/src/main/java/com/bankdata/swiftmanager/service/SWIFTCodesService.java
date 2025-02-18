@@ -9,6 +9,6 @@ import java.util.List;
 public interface SWIFTCodesService {
     public BankDTO getSWIFTCodeDetails(String SWIFTCode);
     public List<BranchDTO> getAllSWIFTCodesFromCountryISO2(String countryISO2);
-    public String addSWIFTCode(BranchDTO bankDTO);
-    public String deleteSWIFTCode(String SWIFTCode);
+    public void addSWIFTCode(BranchDTO bankDTO);
+    public void deleteSWIFTCode(String SWIFTCode);
 }

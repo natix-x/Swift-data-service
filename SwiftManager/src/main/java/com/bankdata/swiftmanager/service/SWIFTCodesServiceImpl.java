@@ -15,12 +15,14 @@ import java.util.List;
 
 @Service
 public class SWIFTCodesServiceImpl implements SWIFTCodesService {
-    @Autowired
-    private SWIFTCodesRepository SWIFTCodesRepository;
-    @Autowired
-    private CountriesRepository CountriesRepository;
 
-    public SWIFTCodesServiceImpl(SWIFTCodesRepository SWIFTCodesRepository) {
+    private final SWIFTCodesRepository SWIFTCodesRepository;
+
+    private final CountriesRepository CountriesRepository;
+
+    public SWIFTCodesServiceImpl(SWIFTCodesRepository SWIFTCodesRepository, CountriesRepository CountriesRepository) {
+        this.SWIFTCodesRepository = SWIFTCodesRepository;
+        this.CountriesRepository = CountriesRepository;
     }
 
     // TODO: eliminacja powtarzającego się kodu
@@ -61,20 +63,18 @@ public class SWIFTCodesServiceImpl implements SWIFTCodesService {
 
     // TODO implement
     @Override
-    public String addSWIFTCode(BranchDTO bankDTO) {
+    public void addSWIFTCode(BranchDTO bankDTO) {
         System.out.println(bankDTO.SWIFTCode());
         Country country = CountriesRepository.findById(bankDTO.countryISO2()).orElseThrow(() -> new CountryNotFoundException("Country with provided ISO2 code not found."));
-        if (!country.getCountryName().equals(bankDTO.countryName())) {
-            return "Failure. Provided country ISO2 code does not match provided country name.";
-        }
+//        if (!country.getCountryName().equals(bankDTO.countryName())) {
+//            return "Failure. Provided country ISO2 code does not match provided country name.";
+//        }
         SWIFTCodesRepository.save(convertToEntity(bankDTO, country));
-        return "Success";
     }
 
     @Override
-    public String deleteSWIFTCode(String SWIFTCode) {
+    public void deleteSWIFTCode(String SWIFTCode) {
         Bank bank = SWIFTCodesRepository.findById(SWIFTCode).orElseThrow(() -> new SWIFTCodeNotFoundException("Bank with provided SWIFT code not found."));
         SWIFTCodesRepository.deleteById(SWIFTCode);
-        return "Bank with provided SWIFT code deleted successfully.";
     }
 }
