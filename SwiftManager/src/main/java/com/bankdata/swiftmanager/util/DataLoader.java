@@ -1,6 +1,5 @@
 package com.bankdata.swiftmanager.util;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -16,12 +15,12 @@ public class DataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args)  {
-        String filePath = "src/main/resources/swift_codes.csv";
+        String filePath = "/data/swift_codes.csv";
         try {
             swiftCodesCSVParser.LoadToDatabase(filePath);
-            System.out.println("Dane SWIFT zostały pomyślnie załadowane do bazy.");
+            System.out.println("Swift data successfully loaded");
         } catch (Exception e) {
-            System.err.println("Błąd podczas ładowania danych SWIFT: " + e.getMessage());
+            System.err.println("Error occurred during data loading: " + e.getMessage() + e.getCause());
         }
     }
     }

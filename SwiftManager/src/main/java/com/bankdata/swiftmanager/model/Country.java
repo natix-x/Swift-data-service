@@ -8,7 +8,7 @@ import java.util.Set;
 @Table(name="countries")
 public class Country {
     @Id
-    @Column(name="country_ISO2")
+    @Column(name="country_ISO2", length=2)
     private String countryISO2;
     @Column(nullable=false, unique=true)
     private String countryName;
@@ -22,7 +22,6 @@ public class Country {
         this.countryName = countryName;
         this.banks = banks;
     }
-
 
     public String getCountryISO2() {
         return countryISO2;
