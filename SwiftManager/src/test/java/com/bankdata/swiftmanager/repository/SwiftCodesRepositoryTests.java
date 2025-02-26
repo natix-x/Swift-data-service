@@ -1,6 +1,5 @@
 package com.bankdata.swiftmanager.repository;
 
-import com.bankdata.swiftmanager.exception.SWIFTCodeNotFoundException;
 import com.bankdata.swiftmanager.model.Bank;
 import com.bankdata.swiftmanager.model.Country;
 import org.junit.jupiter.api.BeforeEach;

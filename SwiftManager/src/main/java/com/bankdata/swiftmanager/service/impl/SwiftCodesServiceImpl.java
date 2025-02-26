@@ -1,4 +1,4 @@
-package com.bankdata.swiftmanager.service;
+package com.bankdata.swiftmanager.service.impl;
 
 import com.bankdata.swiftmanager.dto.BankDTO;
 import com.bankdata.swiftmanager.dto.BanksFromCountryDTO;
@@ -9,6 +9,7 @@ import com.bankdata.swiftmanager.model.Bank;
 import com.bankdata.swiftmanager.model.Country;
 import com.bankdata.swiftmanager.repository.CountriesRepository;
 import com.bankdata.swiftmanager.repository.SwiftCodesRepository;
+import com.bankdata.swiftmanager.service.SWiftCodesService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
