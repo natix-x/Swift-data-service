@@ -38,7 +38,6 @@ public class SwiftCodesServiceImpl implements SWiftCodesService {
     private BankDTO convertHeadquarterToDTO(Bank bank) {
         List<BranchDTO> branchesDTO = swiftCodesRepository.findBranchesByHeadquarter(bank.getSwiftCode().substring(0, 8))
                 .stream()
-                .filter(branch -> !branch.getSwiftCode().equals(bank.getSwiftCode()))
                 .map(this::convertBranchToDTO)
                 .toList();
         Country bankCountry = bank.getCountry();

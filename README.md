@@ -106,7 +106,7 @@ Response Structure:
 ### Requirements
 1. For running the application:\
 Before running the application make sure you have Docker Compose installed. If youencounter any issues during installation or setup process, refer to the [Docker Compuse documentation](#https://docs.docker.com/compose/install/) for guidane.\
-2. For development & exploaration:\
+2. For development & exploaration:
 - Java 21
 - SpringBoot:
   - Spring Data JPA
@@ -128,7 +128,7 @@ Before running the application make sure you have Docker Compose installed. If y
    docker-compose-up
    ```
     Once running, the endpoints are accessible at localhost:8080.
-4. Stopping and cleaning up.
+4. Stopping and cleaning up.\
     To stop the application and remove containers:
     ```sh
    docker-compose down 

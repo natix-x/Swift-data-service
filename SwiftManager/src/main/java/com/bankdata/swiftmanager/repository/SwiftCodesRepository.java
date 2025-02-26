@@ -12,6 +12,6 @@ import java.util.List;
 public interface SwiftCodesRepository extends JpaRepository<Bank, String> {
     List<Bank> findByCountry_CountryISO2(String countryISO2);
 
-    @Query("SELECT b FROM Bank b WHERE b.swiftCode LIKE CONCAT(:pattern, '%')")
+    @Query("SELECT b FROM Bank b WHERE b.swiftCode LIKE CONCAT(:pattern, '%') AND b.isHeadquarter = false")
     List<Bank> findBranchesByHeadquarter(@Param("pattern") String pattern);
 }
