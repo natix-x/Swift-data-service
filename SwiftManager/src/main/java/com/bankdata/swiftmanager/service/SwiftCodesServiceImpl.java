@@ -18,14 +18,13 @@ public class SwiftCodesServiceImpl implements SWiftCodesService {
 
     private final SwiftCodesRepository swiftCodesRepository;
 
-    private final CountriesRepository CountriesRepository;
+    private final CountriesRepository countriesRepository;
 
-    public SwiftCodesServiceImpl(SwiftCodesRepository swiftCodesRepository, CountriesRepository CountriesRepository) {
+    public SwiftCodesServiceImpl(SwiftCodesRepository swiftCodesRepository, CountriesRepository countriesRepository) {
         this.swiftCodesRepository = swiftCodesRepository;
-        this.CountriesRepository = CountriesRepository;
+        this.countriesRepository = countriesRepository;
     }
 
-    // TODO: eliminacja powtarzającego się kodu
     @Override
     public BankDTO getSWIFTCodeDetails(String SWIFTCode) {
         Bank bank = swiftCodesRepository.findById(SWIFTCode).orElseThrow(() -> new SWIFTCodeNotFoundException("Bank with provided SWIFT code not found."));
@@ -39,6 +38,7 @@ public class SwiftCodesServiceImpl implements SWiftCodesService {
     private BankDTO convertHeadquarterToDTO(Bank bank) {
         List<BranchDTO> branchesDTO = swiftCodesRepository.findBranchesByHeadquarter(bank.getSwiftCode().substring(0, 8))
                 .stream()
+                .filter(branch -> !branch.getSwiftCode().equals(bank.getSwiftCode()))
                 .map(this::convertBranchToDTO)
                 .toList();
         Country bankCountry = bank.getCountry();
@@ -58,7 +58,7 @@ public class SwiftCodesServiceImpl implements SWiftCodesService {
 
     @Override
     public BanksFromCountryDTO getAllSwiftCodesFromCountryISO2(String countryISO2) {
-        Country country = CountriesRepository.findById(countryISO2).orElseThrow(() -> new CountryNotFoundException("Country with provided ISO2 code not found."));
+        Country country = countriesRepository.findById(countryISO2).orElseThrow(() -> new CountryNotFoundException("Country with provided ISO2 code not found."));
         List<BranchDTO> banks = swiftCodesRepository.findByCountry_CountryISO2(countryISO2)
                 .stream().
                 map(this::convertBranchToDTO).
@@ -68,7 +68,7 @@ public class SwiftCodesServiceImpl implements SWiftCodesService {
 
     @Override
     public void addSWIFTCode(BranchDTO bankDTO) {
-        Country country = CountriesRepository.findById(bankDTO.countryISO2()).orElseThrow(() -> new CountryNotFoundException("Country with provided ISO2 code not found."));
+        Country country = countriesRepository.findById(bankDTO.countryISO2()).orElseThrow(() -> new CountryNotFoundException("Country with provided ISO2 code not found."));
 //        if (!country.getCountryName().equals(bankDTO.countryName())) {
 //            return "Failure. Provided country ISO2 code does not match provided country name.";
 //        }

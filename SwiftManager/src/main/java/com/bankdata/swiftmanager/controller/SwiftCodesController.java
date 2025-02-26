@@ -28,7 +28,6 @@ public class SwiftCodesController {
         return ResponseEntity.ok(bankDetails);
     }
 
-    // TODO popraw format zwracany
     @GetMapping("/country/{countryISO2code}")
     public ResponseEntity<BanksFromCountryDTO> getCountryBankCodes(@PathVariable("countryISO2code") String countryISO2)
     {
