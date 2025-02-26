@@ -1,12 +1,26 @@
 # Swift-data-service
 ## Table of contents:
 * [General info](#general-info)
-* [Endpoints description](#endpoints-description)
 * [Project structure](#project-structure)
+* [Endpoints description](#endpoints-description)
 * [Requirements](#requirements)
 * [Setup](#setup)
+* [Tests](#tests)
 ### General info
 The aim of this project is to create a Java Spring Boot application. The application processes SWIFT data from a provided CSV file, stores it in MySQL database and provides access to the data via RESTful endpoints. The project includes unit and integration tests, and all components are containerized using Docker, making them accessible at localhost:8080.
+### Project structure
+
+    com.bankdata.swiftmanager/
+    ├── controller/          # Contains controller classes that handle HTTP requests and return responses.
+    ├── dto/                 # Data Transfer Objects - classes used to transfer data between application layers.
+    ├── exception/           # Exception handling, including custom classes for managing application errors.
+    ├── model/               # Data model classes that represent the structure of database tables.
+    ├── repository/          # Repositories for interacting with the database.
+    ├── response/            # Response structures returned by the API.
+    ├── service/             # Business logic of the application, implementation of services.
+    ├── util/                # Utility classes and methods (DataLoader, CSVParser).
+    ├── SwiftManagerApplication  # Main application class that runs the Spring Boot application.
+
 ### Endpoints description
 * Endpoint 1: Retrieve details of a single SWIFT code whether for a headquarters or branches.\
     **GET: /v1/swift-codes/{swift-code}:**\
@@ -102,18 +116,17 @@ Response Structure:
     "message": string,
     }
     ```
-### Project structure
-### Requirements
-1. For running the application:\
-Before running the application make sure you have Docker Compose installed. If youencounter any issues during installation or setup process, refer to the [Docker Compuse documentation](#https://docs.docker.com/compose/install/) for guidane.\
-2. For development & exploaration:
+### Used technologies
 - Java 21
 - SpringBoot:
-  - Spring Data JPA
-  - Spring Web
-  - MySQL Connector
-- Gradle
-
+  - Spring Data JPA - for implementation of JPA-based repositories,
+  - Spring Web - for building REST API,
+- MySQL Connector - for connecting app to MySQL db;
+- OpenCSV - for parsing data from CSV to MySQL db;
+- Gradle - build tool;
+- Lombock - java library that simplifies code by generating boilerplate code like getters, setters, constructors;
+### Requirements
+Before running the application make sure you have Docker Compose installed. If you encounter any issues during installation or setup process, refer to the [Docker Compose documentation](#https://docs.docker.com/compose/install/) for guidance.
 ### Setup
 1. First, clone this repository.
    ```sh
@@ -137,3 +150,19 @@ Before running the application make sure you have Docker Compose installed. If y
     ```sh
    docker-compose down -v
    ```
+### Tests
+For testing below tools were used:
+- JUnit & SpringBoot Test - for unit & integration tests, ensuring individual components and their interactions work as expected;
+- H2 Database - an in-memory database for testing purposes;
+- Postman - for testing and validating the API endpoints, ensuring proper request/response handling
+
+If you want to run tests make sure that you have Java 21 and gradle installed. Then go to project directory (SwiftManager) and run the following command to execute the tests:
+- For linus/mcOS users:
+    ```sh
+   ./gradlew test
+   ```
+- For Windows users:
+    ```sh
+   gradlew test
+   ```
+You can run a predifined collection in Post to test the API endpoints [link do pliku](). To do so:
