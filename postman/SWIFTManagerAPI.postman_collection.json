@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "96e98046-13fa-4696-a8ec-a335c40fbd83",
+		"name": "SWIFTManagerAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40009576"
+	},
+	"item": [
+		{
+			"name": "Get Headquarter With Branches Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/swift-codes/ALBPPLPWXXX",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"swift-codes",
+						"ALBPPLPWXXX"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Headquarter Without Branches Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/swift-codes/ANTLUYM1XXX",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"swift-codes",
+						"ANTLUYM1XXX"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Branch Details",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Banks From Country",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/swift-codes/country/PL",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"swift-codes",
+						"country",
+						"PL"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add New SWIFT Code",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"address\": \"WARSZAWA, MAZOWIECKIE\",\r\n    \"bankName\": \"NOWY BANK\",\r\n    \"countryISO2\": \"PL\",\r\n    \"countryName\": \"POLAND\",\r\n    \"isHeadquarter\": false,\r\n    \"swiftCode\": \"ALKKSTSK\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/v1/swift-codes/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"swift-codes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/swift-codes/ALBPPLPWXXX",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"swift-codes",
+						"ALBPPLPWXXX"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

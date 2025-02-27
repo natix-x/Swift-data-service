@@ -31,7 +31,7 @@ public class SwiftCodesServiceImpl implements SWiftCodesService {
         Bank bank = swiftCodesRepository.findById(SWIFTCode).orElseThrow(() -> new SWIFTCodeNotFoundException("Bank with provided SWIFT code not found."));
         if (!bank.isHeadquarter()) {
             Country bankCountry = bank.getCountry();
-            return new BankDTO(bank.getAddress(), bank.getBankName(), bankCountry.getCountryISO2(), bankCountry.getCountryName(), bank.isHeadquarter(), bank.getSwiftCode(), null);
+            return new BankDTO(bank.getAddress(), bank.getBankName(), bankCountry.getCountryISO2(), bankCountry.getCountryName(), false, bank.getSwiftCode(), null);
         }
         return convertHeadquarterToDTO(bank);
     }
@@ -41,6 +41,7 @@ public class SwiftCodesServiceImpl implements SWiftCodesService {
                 .stream()
                 .map(this::convertBranchToDTO)
                 .toList();
+        System.out.println("Found branches: " + branchesDTO);
         Country bankCountry = bank.getCountry();
         return new BankDTO(bank.getAddress(), bank.getBankName(), bankCountry.getCountryISO2(), bankCountry.getCountryName(), bank.isHeadquarter(), bank.getSwiftCode(), branchesDTO);
     }

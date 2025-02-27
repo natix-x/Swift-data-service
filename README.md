@@ -138,13 +138,13 @@ Before running the application make sure you have Docker Compose installed. If y
    ```
 3. Run the application with Docker Compose.
     ```sh
-   docker-compose-up
+   docker compose up
    ```
     Once running, the endpoints are accessible at localhost:8080.
 4. Stopping and cleaning up.\
     To stop the application and remove containers:
     ```sh
-   docker-compose down 
+   docker compose down 
    ```
    To remove all containers and volumes:
     ```sh
@@ -156,13 +156,36 @@ For testing below tools were used:
 - H2 Database - an in-memory database for testing purposes;
 - Postman - for testing and validating the API endpoints, ensuring proper request/response handling
 
-If you want to run tests make sure that you have Java 21 and gradle installed. Then go to project directory (SwiftManager) and run the following command to execute the tests:
-- For linus/mcOS users:
-    ```sh
-   ./gradlew test
-   ```
-- For Windows users:
-    ```sh
-   gradlew test
-   ```
-You can run a predifined collection in Post to test the API endpoints [link do pliku](). To do so:
+If you want to run tests make sure that you have Java 21 and gradle installed. Then go to project directory (SwiftManager) and run the following commands to execute:
+- Unit tests:
+```sh
+# Linux/macOS  
+./gradlew test  
+
+# Windows  
+gradlew test 
+```
+- Integration tests:
+```sh
+# Linux/macOS  
+./gradlew integrationTests  
+
+# Windows  
+gradlew integrationTests  
+```
+- All tests:
+```sh
+# Linux/macOS  
+./gradlew check  
+
+# Windows  
+gradlew check  
+```
+You can easily test the API endpoints by running a predefined collection in Postman. Follow these steps:
+1. Download the Postman Collection:
+    - Get the predefined collection from the [file](postman/SWIFTManagerAPI.postman_collection.json).
+2. Import the Collection into Postman:
+    - Open Postman.
+    - Click on the "Import" button.
+    - Choose downloaded file to import it.
+For detailed instructions on how to import data into postman, refer to [Postman Importating Guide](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-data/).

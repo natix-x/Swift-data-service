@@ -1,4 +1,4 @@
-package com.bankdata.swiftmanager.service.impl;
+package com.bankdata.swiftmanager.service;
 
 import com.bankdata.swiftmanager.dto.BankDTO;
 import com.bankdata.swiftmanager.dto.BanksFromCountryDTO;
@@ -8,6 +8,7 @@ import com.bankdata.swiftmanager.model.Bank;
 import com.bankdata.swiftmanager.model.Country;
 import com.bankdata.swiftmanager.repository.CountriesRepository;
 import com.bankdata.swiftmanager.repository.SwiftCodesRepository;
+import com.bankdata.swiftmanager.service.impl.SwiftCodesServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,9 +26,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class SwiftCodesServiceImplTests {
+public class SwiftCodesServiceTests {
 
     private Country country;
+
     @Mock
     private CountriesRepository countriesRepository;
 
