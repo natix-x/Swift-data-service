@@ -66,6 +66,7 @@ public class SwiftCodesServiceImpl implements SWiftCodesService {
         return new BanksFromCountryDTO(countryISO2, country.getCountryName(), banks);
     }
 
+    // TODO: Dodwanie już istenijącego kodu exception
     @Override
     public void addSWIFTCode(BranchDTO bankDTO) {
         Country country = countriesRepository.findById(bankDTO.countryISO2()).orElseThrow(() -> new CountryNotFoundException("Country with provided ISO2 code not found."));

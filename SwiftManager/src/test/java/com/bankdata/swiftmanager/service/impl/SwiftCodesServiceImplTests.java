@@ -22,8 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class SwiftCodesServiceImplTests {
@@ -71,16 +70,15 @@ public class SwiftCodesServiceImplTests {
         swiftCodesService.addSWIFTCode(branchDTO);
 
         // then
-        Mockito.verify(swiftCodesRepository, Mockito.times(1)).save(Mockito.argThat(addedBank ->
+        verify(swiftCodesRepository, Mockito.times(1)).save(Mockito.argThat(addedBank ->
                 addedBank.getSwiftCode().equals("PKOPPLPW") &&
                         addedBank.getBankName().equals("PKO Bank Polski")
         ));
     }
 
-    // TODO: popraw ten test, aby zwracał DTO odpowiednie
     @Test
     @DisplayName("JUnit test for get all banks from country.")
-    public void givenCountryISO2_whenGetAllSwiftCodesFromCountryISO2_thenReturnDTO() {
+    public void givenCountryISO2_whenGetAllSwiftCodesFromCountryISO2_thenReturnBanksFromCountryDTO() {
         // given
         String countryISO2 = "PL";
         Bank bankOne = Bank.builder()
@@ -104,10 +102,13 @@ public class SwiftCodesServiceImplTests {
 
 
         // when
-        BanksFromCountryDTO gotBanksFromCountry = swiftCodesService.getAllSwiftCodesFromCountryISO2(countryISO2);
+        BanksFromCountryDTO banksFromCountryDTO = swiftCodesService.getAllSwiftCodesFromCountryISO2(countryISO2);
 
         // then
-        Mockito.verify(swiftCodesRepository, Mockito.times(1)).findByCountry_CountryISO2(countryISO2);
+        verify(swiftCodesRepository, Mockito.times(1)).findByCountry_CountryISO2(countryISO2);
+        assertNotNull(banksFromCountryDTO);
+        List<BranchDTO> banksInCountry = banksFromCountryDTO.swiftCodes();
+        assertEquals(banks.size(), banksInCountry.size());
     }
 
     @Test
@@ -128,7 +129,7 @@ public class SwiftCodesServiceImplTests {
         // when
         swiftCodesService.deleteSWIFTCode(swiftCode);
         // then
-        Mockito.verify(swiftCodesRepository, Mockito.times(1)).deleteById(swiftCode);
+        verify(swiftCodesRepository, Mockito.times(1)).deleteById(swiftCode);
     }
 
     @Test

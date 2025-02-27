@@ -9,6 +9,7 @@ import com.bankdata.swiftmanager.service.SWiftCodesService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -38,7 +39,9 @@ public class SwiftCodesController {
     @PostMapping("")
     public ResponseEntity<ApiResponse<String>> addBankCode(@RequestBody BranchDTO bankDTO) {
         SWIFTCodesService.addSWIFTCode(bankDTO);
-        return ResponseEntity.ok(ResponseUtil.successMessageDisplay("New SWIFT code data added successfully."));
+        URI location = URI.create("/v1/swift-codes/" + bankDTO.swiftCode());
+        return ResponseEntity.created(location).body(
+                (ResponseUtil.successMessageDisplay("New SWIFT code data added successfully.")));
     }
 
     @DeleteMapping("/{swift-code}")
