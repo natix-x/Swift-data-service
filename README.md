@@ -182,7 +182,9 @@ gradlew integrationTest
 # Windows  
 gradlew check  
 ```
-You can easily test the API endpoints by running a predefined collection in Postman. Remember to firstly run the application. Then follow these steps:
+Test reports will be available in the build/reports/ directory.
+
+You can also easily test the API endpoints by running a predefined collection in Postman. Remember to firstly run the application. Then follow these steps:
 1. Download the Postman Collection:
     - Get the predefined collection from the [file](postman/SWIFTManagerAPI.postman_collection.json).
 2. Import the Collection into Postman:

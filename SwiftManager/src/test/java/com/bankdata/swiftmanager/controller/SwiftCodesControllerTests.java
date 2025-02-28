@@ -73,7 +73,8 @@ public class SwiftCodesControllerTests {
         ResultActions response = mockMvc.perform(get("/v1/swift-codes/" + swiftCode));
 
         // then
-        response.andExpect(status().isNotFound());
+        response.andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message", is("Resource not found")));
     }
 
     @Test
@@ -124,7 +125,8 @@ public class SwiftCodesControllerTests {
                 .content(objectMapper.writeValueAsString(branchDTO)));
 
         // then
-        response.andExpect(status().isCreated());
+        response.andExpect(status().isCreated())
+                .andExpect(jsonPath("$.message", is("New SWIFT code data added successfully.")));
     }
 
     @Test
@@ -152,6 +154,7 @@ public class SwiftCodesControllerTests {
         ResultActions response = mockMvc.perform(delete("/v1/swift-codes/" + swiftCode));
 
         // then
-        response.andExpect(status().isNotFound());
+        response.andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message", is("Resource not found")));
     }
 }
