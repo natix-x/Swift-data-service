@@ -148,15 +148,16 @@ Before running the application make sure you have Docker Compose installed. If y
    ```
    To remove all containers and volumes:
     ```sh
-   docker-compose down -v
+   docker compose down -v
    ```
 ### Tests
 For testing below tools were used:
 - JUnit & SpringBoot Test - for unit & integration tests, ensuring individual components and their interactions work as expected;
 - H2 Database - an in-memory database for testing purposes;
 - Postman - for testing and validating the API endpoints, ensuring proper request/response handling
+- Test Containers - for providing lightweight, throwaway instance of MySQL database, enabling realistic integration tests with containerized environments
 
-If you want to run tests make sure that you have Java 21 and gradle installed. Then go to project directory (SwiftManager) and run the following commands to execute:
+If you want to run tests make sure that you have Java 21 and gradle installed. For running integration tests you also have to have docker installed and running. Then go to project directory (SwiftManager) and run the following commands to execute:
 - Unit tests:
 ```sh
 # Linux/macOS  
@@ -168,10 +169,10 @@ gradlew test
 - Integration tests:
 ```sh
 # Linux/macOS  
-./gradlew integrationTests  
+./gradlew integrationTest  
 
 # Windows  
-gradlew integrationTests  
+gradlew integrationTest 
 ```
 - All tests:
 ```sh
@@ -181,7 +182,7 @@ gradlew integrationTests
 # Windows  
 gradlew check  
 ```
-You can easily test the API endpoints by running a predefined collection in Postman. Follow these steps:
+You can easily test the API endpoints by running a predefined collection in Postman. Remember to firstly run the application. Then follow these steps:
 1. Download the Postman Collection:
     - Get the predefined collection from the [file](postman/SWIFTManagerAPI.postman_collection.json).
 2. Import the Collection into Postman:

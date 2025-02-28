@@ -18,6 +18,12 @@ public class Bank {
     @Column(nullable = false)
     private String bankName;
     private String address;
+    @Column(nullable = false)
+    private boolean isHeadquarter;
+
+    @ManyToOne
+    @JoinColumn(name = "country_ISO2", nullable = false)
+    private Country country;
 
     @Override
     public boolean equals(Object o) {
@@ -31,12 +37,5 @@ public class Bank {
     public int hashCode() {
         return Objects.hashCode(swiftCode);
     }
-
-    @Column(nullable = false)
-    private boolean isHeadquarter;
-
-    @ManyToOne
-    @JoinColumn(name = "country_ISO2", nullable = false)
-    private Country country;
 
 }

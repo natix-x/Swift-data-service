@@ -25,8 +25,8 @@ sourceSets {
 }
 
 configurations {
-	intTestImplementation.extendsFrom implementation
-	intTestRuntimeOnly.extendsFrom runtimeOnly
+    intTestImplementation.extendsFrom implementation, testImplementation
+    intTestRuntimeOnly.extendsFrom runtimeOnly
 }
 
 dependencies {
@@ -44,6 +44,13 @@ dependencies {
 	testImplementation 'com.h2database:h2'
 	intTestImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
 	intTestRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testImplementation 'org.testcontainers:mssqlserver:1.20.5'
+	testImplementation 'org.testcontainers:junit-jupiter:1.20.5'
+	testImplementation 'org.testcontainers:mysql:1.20.5'
+    intTestImplementation 'org.springframework.boot:spring-boot-starter-test'
+    intTestImplementation 'org.testcontainers:mssqlserver:1.20.5'
+    intTestImplementation 'org.testcontainers:junit-jupiter:1.20.5'
+    intTestImplementation 'org.testcontainers:mysql:1.20.5'
 }
 
 
@@ -58,7 +65,7 @@ tasks.register('integrationTest', Test) {
 	testClassesDirs = sourceSets.intTest.output.classesDirs
 	classpath = sourceSets.intTest.runtimeClasspath
 	shouldRunAfter test
-
+    dependsOn bootJar
 	useJUnitPlatform()
 
 	testLogging {
