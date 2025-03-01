@@ -5,7 +5,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import com.bankdata.swiftmanager.response.ApiResponse;
 import com.bankdata.swiftmanager.response.ResponseUtil;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,15 +27,16 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<ApiResponse<Object>> handleDatabaseConstraintViolations(Exception ex) {
 
-        String message = "A database constraint (e.g., unique, foreign key) was violated.";
-        ApiResponse<Object> response = ResponseUtil.error(Collections.singletonList(message), "Database Constraint Error", 409);
+        String message = "A database constraint was violated.";
+        ApiResponse<Object> response = ResponseUtil.error(Collections.singletonList(ex.getMessage()), "Database Constraint Error", 409);
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
 
     @ExceptionHandler(SwiftCodeAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<ApiResponse<Object>> handleSWIFTCodeAlreadyExistsException(SwiftCodeAlreadyExistsException ex) {
-        ApiResponse<Object> response = ResponseUtil.error(Collections.singletonList(ex.getMessage()), "Database Constraint Error", 409);
+        ApiResponse<Object> response = ResponseUtil.error(Collections.singletonList(ex.getMessage()), "Resource already exists.", 409);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 

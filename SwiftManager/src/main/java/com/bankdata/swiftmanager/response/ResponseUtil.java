@@ -1,6 +1,5 @@
 package com.bankdata.swiftmanager.response;
 
-import java.util.Collections;
 import java.util.List;
 
 public class ResponseUtil {
@@ -10,21 +9,10 @@ public class ResponseUtil {
         return response;
     }
 
-    public static <T> ApiResponse<T> successDataDisplay(T data) {
-        ApiResponse<T> response = new ApiResponse<>();
-        response.setData(data);
-        return response;
-    }
-
     public static <T> ApiResponse<T> error(List<String> errors, String message, int errorCode) {
         ApiResponse<T> response = new ApiResponse<>();
         response.setMessage(message);
         response.setErrors(errors);
         return response;
-    }
-
-
-    public static <T> ApiResponse<T> error(String error, String message, int errorCode) {
-        return error(Collections.singletonList(error), message, errorCode);
     }
 }

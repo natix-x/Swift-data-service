@@ -3,7 +3,7 @@ package com.bankdata.swiftmanager.service;
 import com.bankdata.swiftmanager.dto.BankDTO;
 import com.bankdata.swiftmanager.dto.BanksFromCountryDTO;
 import com.bankdata.swiftmanager.dto.BranchDTO;
-import com.bankdata.swiftmanager.exception.SWIFTCodeNotFoundException;
+import com.bankdata.swiftmanager.exception.SwiftCodeNotFoundException;
 import com.bankdata.swiftmanager.model.Bank;
 import com.bankdata.swiftmanager.model.Country;
 import com.bankdata.swiftmanager.repository.CountriesRepository;
@@ -143,7 +143,7 @@ public class SwiftCodesServiceTests {
         when(swiftCodesRepository.findById(swiftCode)).thenReturn(Optional.empty());
 
         // when & then
-        assertThrows(SWIFTCodeNotFoundException.class, () -> swiftCodesService.deleteSWIFTCode(swiftCode));
+        assertThrows(SwiftCodeNotFoundException.class, () -> swiftCodesService.deleteSWIFTCode(swiftCode));
     }
 
     @Test
@@ -177,7 +177,7 @@ public class SwiftCodesServiceTests {
 
         when(swiftCodesRepository.findById(swiftCode)).thenReturn(Optional.empty());
         // when & then
-        assertThrows(SWIFTCodeNotFoundException.class, () -> swiftCodesService.getSWIFTCodeDetails(swiftCode));
+        assertThrows(SwiftCodeNotFoundException.class, () -> swiftCodesService.getSWIFTCodeDetails(swiftCode));
     }
 
 

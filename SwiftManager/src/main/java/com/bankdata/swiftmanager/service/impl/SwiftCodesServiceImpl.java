@@ -4,7 +4,8 @@ import com.bankdata.swiftmanager.dto.BankDTO;
 import com.bankdata.swiftmanager.dto.BanksFromCountryDTO;
 import com.bankdata.swiftmanager.dto.BranchDTO;
 import com.bankdata.swiftmanager.exception.CountryNotFoundException;
-import com.bankdata.swiftmanager.exception.SWIFTCodeNotFoundException;
+import com.bankdata.swiftmanager.exception.SwiftCodeNotFoundException;
+import com.bankdata.swiftmanager.exception.SwiftCodeAlreadyExistsException;
 import com.bankdata.swiftmanager.model.Bank;
 import com.bankdata.swiftmanager.model.Country;
 import com.bankdata.swiftmanager.repository.CountriesRepository;
@@ -28,7 +29,7 @@ public class SwiftCodesServiceImpl implements SWiftCodesService {
 
     @Override
     public BankDTO getSWIFTCodeDetails(String SWIFTCode) {
-        Bank bank = swiftCodesRepository.findById(SWIFTCode).orElseThrow(() -> new SWIFTCodeNotFoundException("Bank with provided SWIFT code not found."));
+        Bank bank = swiftCodesRepository.findById(SWIFTCode).orElseThrow(() -> new SwiftCodeNotFoundException("Bank with provided SWIFT code not found."));
         if (!bank.isHeadquarter()) {
             Country bankCountry = bank.getCountry();
             return new BankDTO(bank.getAddress(), bank.getBankName(), bankCountry.getCountryISO2(), bankCountry.getCountryName(), false, bank.getSwiftCode(), null);
@@ -41,7 +42,6 @@ public class SwiftCodesServiceImpl implements SWiftCodesService {
                 .stream()
                 .map(this::convertBranchToDTO)
                 .toList();
-        System.out.println("Found branches: " + branchesDTO);
         Country bankCountry = bank.getCountry();
         return new BankDTO(bank.getAddress(), bank.getBankName(), bankCountry.getCountryISO2(), bankCountry.getCountryName(), bank.isHeadquarter(), bank.getSwiftCode(), branchesDTO);
     }
@@ -71,14 +71,14 @@ public class SwiftCodesServiceImpl implements SWiftCodesService {
     public void addSWIFTCode(BranchDTO bankDTO) {
         Country country = countriesRepository.findById(bankDTO.countryISO2()).orElseThrow(() -> new CountryNotFoundException("Country with provided ISO2 code not found."));
         if (swiftCodesRepository.findById(bankDTO.swiftCode()).isPresent()) {
-        throw new SWIFTCodeAlreadyExistsException("SWIFT code already exists.");
+            throw new SwiftCodeAlreadyExistsException("SWIFT code already exists.");
     }
         swiftCodesRepository.save(convertToEntity(bankDTO, country));
     }
 
     @Override
     public void deleteSWIFTCode(String SWIFTCode) {
-        Bank bank = swiftCodesRepository.findById(SWIFTCode).orElseThrow(() -> new SWIFTCodeNotFoundException("Bank with provided SWIFT code not found."));
+        Bank bank = swiftCodesRepository.findById(SWIFTCode).orElseThrow(() -> new SwiftCodeNotFoundException("Bank with provided SWIFT code not found."));
         swiftCodesRepository.deleteById(SWIFTCode);
     }
 }
