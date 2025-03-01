@@ -1,13 +1,15 @@
 package com.bankdata.swiftmanager.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.net.URL;
-
 @Component
 public class DataLoader implements ApplicationRunner {
+
+    private final Logger logger = LoggerFactory.getLogger(DataLoader.class);
 
     private final SwiftCodesCSVParser swiftCodesCSVParser;
 
@@ -20,9 +22,9 @@ public class DataLoader implements ApplicationRunner {
         String filePath = "/data/swift_codes.csv";
         try {
             swiftCodesCSVParser.LoadToDatabase(filePath);
-            System.out.println("Swift data successfully loaded");
+            logger.info("Swift data successfully loaded");
         } catch (Exception e) {
-            System.err.println("Error occurred during data loading: " + e.getMessage() + e.getCause());
+            logger.error(e.getMessage());
         }
     }
     }

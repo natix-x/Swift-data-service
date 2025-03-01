@@ -143,8 +143,7 @@ public class SwiftCodesControllerIntegrationTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message", is("Swift code data deleted successfully.")));
     }
-    //TODO: dodać test i implementację kodu jak kraj nieistniejący
-    //TODO: dodać test jak dodajemy już istenijący swiftcode
+
     @Test
     @DisplayName("Integration test for delete non-existing SWIFT code")
     public void givenNonExistingSwiftCode_whenDeleteBankCode_thenReturnResponseWithErrorMessage() throws Exception {
