@@ -137,7 +137,7 @@ Before running the application make sure you have Docker Compose installed. If y
 ### Setup
 1. First, clone this repository.
    ```sh
-   https://github.com/natix-x/Swift-data-service.git
+   git clone https://github.com/natix-x/Swift-data-service.git
    ```
 2. Go to project directory.
    ```sh
