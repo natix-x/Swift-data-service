@@ -67,13 +67,12 @@ public class SwiftCodesServiceImpl implements SWiftCodesService {
         return new BanksFromCountryDTO(countryISO2, country.getCountryName(), banks);
     }
 
-    // TODO: Dodwanie już istenijącego kodu exception
     @Override
     public void addSWIFTCode(BranchDTO bankDTO) {
         Country country = countriesRepository.findById(bankDTO.countryISO2()).orElseThrow(() -> new CountryNotFoundException("Country with provided ISO2 code not found."));
-//        if (!country.getCountryName().equals(bankDTO.countryName())) {
-//            return "Failure. Provided country ISO2 code does not match provided country name.";
-//        }
+        if (swiftCodesRepository.findById(bankDTO.swiftCode()).isPresent()) {
+        throw new SWIFTCodeAlreadyExistsException("SWIFT code already exists.");
+    }
         swiftCodesRepository.save(convertToEntity(bankDTO, country));
     }
 

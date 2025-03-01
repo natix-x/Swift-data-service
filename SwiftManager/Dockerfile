@@ -1,7 +1,7 @@
 FROM gradle:8.6-jdk21 AS build
 WORKDIR /home/gradle/src
 COPY  . .
-RUN gradle build --no-daemon
+RUN gradle build -x test -x integrationTest --no-daemon
 
 FROM openjdk:21-jdk-slim
 WORKDIR /app

@@ -23,6 +23,7 @@ public class ResponseUtil {
         return response;
     }
 
+
     public static <T> ApiResponse<T> error(String error, String message, int errorCode) {
         return error(Collections.singletonList(error), message, errorCode);
     }
