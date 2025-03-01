@@ -116,6 +116,13 @@ Response Structure:
     "message": string,
     }
     ```
+If any errors occur while accessing the endpoints, the following response structure is used:\
+```
+{
+"errors": list,
+"message": string
+}
+```
 ### Used technologies
 - Java 21
 - SpringBoot:
@@ -126,7 +133,7 @@ Response Structure:
 - Gradle - build tool;
 - Lombock - java library that simplifies code by generating boilerplate code like getters, setters, constructors;
 ### Requirements
-Before running the application make sure you have Docker Compose installed. If you encounter any issues during installation or setup process, refer to the [Docker Compose documentation](#https://docs.docker.com/compose/install/) for guidance.
+Before running the application make sure you have Docker Compose installed. If you encounter any issues during installation or setup process, refer to the [Docker Compose documentation](https://docs.docker.com/compose/install/) for guidance.
 ### Setup
 1. First, clone this repository.
    ```sh

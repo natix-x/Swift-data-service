@@ -1,6 +1,8 @@
 package com.bankdata.swiftmanager.controller;
 
 import com.bankdata.swiftmanager.dto.BranchDTO;
+import com.bankdata.swiftmanager.exception.CountryNotFoundException;
+import com.bankdata.swiftmanager.exception.SwiftCodeAlreadyExistsException;
 import com.bankdata.swiftmanager.model.Bank;
 import com.bankdata.swiftmanager.model.Country;
 import com.bankdata.swiftmanager.repository.CountriesRepository;
@@ -17,11 +19,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -131,6 +136,38 @@ public class SwiftCodesControllerIntegrationTests {
                 .content(objectMapper.writeValueAsString(branchDTO)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.message", is("New SWIFT code data added successfully.")));
+    }
+
+    @Test
+    @DisplayName("Integration test for add already existing SWIFT code.")
+    public void givenBranchDTOWithAlreadyExistingSwiftCode_whenAddBankCode_thenReturnErrorResponse() throws Exception {
+        // given
+        String swiftCode = "FGTHJKDS";
+        BranchDTO branchDTO = BranchDTO.builder()
+                .address("Warszawa, Polska")
+                .bankName("Bank 1")
+                .countryISO2("PL")
+                .isHeadquarter(false)
+                .swiftCode(swiftCode).build();
+
+        // when & then
+        mockMvc.perform(post("/v1/swift-codes/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(branchDTO)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors[0]", is("SWIFT code already exists.")));
+    }
+
+    @Test
+    @DisplayName("Integration test for add SWIFT code associated with non-existing country.")
+    public void givenBranchDTOWithExistingSwiftCode_whenAddBankCode_thenReturnCountryNotFound() throws Exception {
+        // given
+        String nonExistingISO2 = "EN";
+        // when & then
+        mockMvc.perform(get("/v1/swift-codes/country/" + nonExistingISO2))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.errors[0]", is("Country with provided ISO2 code not found.")))
+                .andExpect(jsonPath("$.message", is("Resource not found")));
     }
 
     @Test

@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ApiResponse<Object>> handleResourceNotFoundException(ResourceNotFoundException ex) {
-        logger.error("Resource not found: {}", ex.getMessage(), ex);
+        logger.error("Resource not found: {}", ex.getMessage());
         ApiResponse<Object> response = ResponseUtil.error(Collections.singletonList(ex.getMessage()), "Resource not found", 404);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({DataIntegrityViolationException.class, ConstraintViolationException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<ApiResponse<Object>> handleDatabaseConstraintViolations(Exception ex) {
-        logger.error("Database constraint violation: {}", ex.getMessage(), ex);
+        logger.error("Database constraint violation: {}", ex.getMessage());
         ApiResponse<Object> response = ResponseUtil.error(Collections.singletonList(ex.getMessage()), "Database Constraint Error", 409);
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(SwiftCodeAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<ApiResponse<Object>> handleSWIFTCodeAlreadyExistsException(SwiftCodeAlreadyExistsException ex) {
-        logger.error("SWIFT code already exists: {}", ex.getMessage(), ex);
+        logger.error("SWIFT code already exists: {}", ex.getMessage());
         ApiResponse<Object> response = ResponseUtil.error(Collections.singletonList(ex.getMessage()), "Resource already exists.", 409);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ApiResponse<Object>> handleGeneralException(Exception ex) {
-        logger.error("Unexpected error occurred: {}", ex.getMessage(), ex);
+        logger.error("Unexpected error occurred: {}", ex.getMessage());
         ApiResponse<Object> response = ResponseUtil.error(Collections.singletonList("An unexpected error occurred"), "Internal Server Error", 500);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
